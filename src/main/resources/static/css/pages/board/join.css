@@ -1,0 +1,28 @@
+/* 에러 메시지 스타일 */
+.fieldError {
+    color: #bd2130;
+}
+
+.naver {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 400px;
+    margin: 0 auto;
+    height: auto;
+    background-color: #1ec800;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #fff;
+    padding: 10px;
+}
+
+.naver img {
+    width: 20px;
+    height: auto;
+    margin-right: 15px;
+}
+.naver:hover {
+    text-decoration: none;
+    color: #fff;
+}

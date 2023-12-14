@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+<head>
+    <title>내가 쓴 글</title>
+
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/pages/board/list.css}"/>
+        <link rel="stylesheet" th:href="@{/css/pages/member/header.css}"/>
+    </th:block>
+
+</head>
+<body>
+<div class="container" layout:fragment="content">
+    <section id="header">
+        <a href="/member/mypage">회원 정보 변경</a>
+        <a href="/member/article">내가 쓴 글</a>
+        <a href="/member/article/like">좋아요 한 글</a>
+    </section>
+    <h2>내가 쓴 글</h2>
+
+    <div class="board-list">
+        <div th:each="board : ${myArticles}" class="board-item">
+            <!-- 내용을 적절히 변경하거나 추가 -->
+            <div class="board-info">
+                <div class="board-title">
+                    <a class="title-a" th:href="@{/board/{id}(id=${board.id})}">
+                        <span th:text="${board.title}"></span>
+                    </a>
+                    <span class="comments" th:text="'['+${board.comments}+']'"></span>
+                </div>
+
+                <div class="etc">
+                    <a th:href="@{/board/list(searchType=userName, keyword=${board.userName})}">
+                        <span th:text="${board.userName}"></span>
+                    </a>
+                    <div class="dot">
+                        ·
+                    </div>
+                    <i class="mr-1 fa-regular fa-eye"></i><span th:text="${board.views}"></span>
+                    <div class="dot">
+                        ·
+                    </div>
+                    <i class="mr-1 fa-regular fa-thumbs-up"></i> <span th:text="${board.likes}"></span>
+                    <div class="dot">
+                        ·
+                    </div>
+                    <span th:text="${board.createdAt} ? ${#temporals.format(board.createdAt,'yyyy-MM-dd HH:mm')} : ${board.createdAt}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

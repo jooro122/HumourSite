@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      layout:decorate="~{layouts/default}">
+
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <title>[[${board.title}]]</title>
+
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/pages/board/detail.css}"/>
+    </th:block>
+
+    <th:block layout:fragment="script">
+        <script th:inline="javascript">
+            const id = [[${id}]];
+            const memberId = [[${memberId}]];
+        </script>
+        <script th:inline="javascript" src="/js/board/detail.js"></script>
+    </th:block>
+</head>
+<body>
+<div class="container" layout:fragment="content">
+    <div class="mb-4">
+        <div>
+            <form>
+                <div class="info">
+                    <div class="title">
+                        <h1><span th:text="${board.title}"></h1>
+                        </span>
+                    </div>
+                    <div class="etc">
+                        <div class="userName" th:text="${board.userName}">
+                        </div>
+                        <div class="dot">
+                            ·
+                        </div>
+                        <div>
+                            <i class="fa-regular fa-eye"></i><span th:text="${board.views}"></span>
+                        </div>
+                        <div class="dot">
+                            ·
+                        </div>
+                        <div>
+                            <i class="fa-regular fa-thumbs-up"></i> <span th:text="${board.likes}"></span>
+                        </div>
+                        <div class="dot">
+                            ·
+                        </div>
+                        <div>
+                            <span th:text="${board.createdAt} ? ${#temporals.format(board.createdAt,'yyyy-MM-dd HH:mm')} : ${board.createdAt}"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content" th:utext="${board.content}" readonly></div>
+
+
+                <div class="likeContainer">
+                    <button id="like" class="like btn likeButton" onclick="likeOrUnlike(); ">
+                        <div><i class="fa-regular fa-thumbs-up"></i> 베스트 게시판으로
+                            <span id="likeCount" th:text="${likesCount}"></span></div>
+                    </button>
+                </div>
+
+                <a href="/board/list" class="btn btn-outline-secondary">목록</a>
+                <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                    <th:block
+                            th:if="${board.email == #authentication.principal.username or #authorization.expression('hasRole(''ADMIN'')')}">
+                        <a th:href="@{/board/{id}/update(id=${id})}" class="btn btn-outline-info"><i
+                                class="fa-solid fa-pen-to-square"></i></a>
+                        <a th:href="@{/board/{id}/remove(id=${id})}" class="btn btn-outline-danger"
+                           onclick="return confirm('삭제하시겠습니까?')"><i class="fa-solid fa-trash"></i></a>
+                    </th:block>
+                </th:block>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            </form>
+
+
+            <!-- 댓글 표시 -->
+            <div class="my-4" th:if="${comments.size() != 0}">
+                <h5>댓글</h5>
+                <div>
+                    <div th:each="comment : ${comments}">
+                        <div class="media mb-4">
+                            <div class="media-body">
+                                <div class="comments-title">
+                                    <span class="font-weight-bold mt-0 ml-2" th:text="${comment.userName}">유저 네임</span>
+                                    <span class="text-muted ml-2"
+                                          th:text="${#temporals.format(comment.createdAt, 'MM-dd HH:mm')}">댓글
+                                        시간</span>
+                                </div>
+                                <p class="ml-2" th:text="${comment.content}"
+                                   th:id="'comment-' + ${comment.Id}">댓글 내용</p>
+
+                                <div class="mb-2">
+                                    <th:block th:if="${#authorization.expression('isAuthenticated()')}">
+                                        <th:block
+                                                th:if="${comment.email == #authentication.principal.username or #authorization.expression('hasRole(''ADMIN'')')}">
+                                            <button class="btn btn-sm btn-outline-info"
+                                                    th:attr="data-id=${comment.Id}" onclick="editComment(this)"><i
+                                                    class="fa-solid fa-pen-to-square"></i>
+                                            </button>
+                                            <a th:href="@{/board/{id}/comment/{commentId}/remove(id=${id}, commentId=${comment.Id})}"
+                                               class="btn btn-sm btn-outline-danger"
+                                               onclick="return confirm('댓글을 삭제하겠습니까?')"><i
+                                                    class="fa-solid fa-trash"></i></a>
+                                        </th:block>
+                                    </th:block>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 댓글 입력 -->
+            <form th:action="@{/board/{id}/comment(id=${id})}" th:method="post">
+                <div class="form-group" style="margin-bottom: 10px;">
+                    <input type="hidden" name="idx" th:value="*{idx}"/>
+                    <textarea name="content" class="form-control mt-3" rows="3" placeholder="댓글을 작성해주세요."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">등록</button>
+            </form>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

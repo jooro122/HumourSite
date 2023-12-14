@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" th:href="@{/css/components/footer.css}"/>
+</head>
+
+<div th:fragment="footer" align="center" class="footer">
+    <form th:action="@{/board/list}" method="get">
+        <div class="search">
+            <select name="searchType">
+                <option value="title" th:selected="${searchType == 'title'}">제목</option>
+                <option value="titleAndContent" th:selected="${searchType == 'titleAndContent'}">제목 + 내용</option>
+                <option value="userName" th:selected="${searchType == 'userName'}">글쓴이</option>
+            </select>
+            <input type="text" name="keyword" placeholder="검색어를 입력하세요" value="" th:value="${keyword}">
+            <button type="submit">검색</button>
+        </div>
+    </form>
+    <span> footer 영역입니다.</span>
+</div>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+<head>
+    <title>게시글 수정 | [[${board.title}]]</title>
+    <head>
+        <meta name="_csrf" th:content="${_csrf.token}"/>
+        <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+        <th:block layout:fragment="script">
+            <script src="/js/board/update.js"></script>
+        </th:block>
+
+    </head>
+<body>
+<div class="container" layout:fragment="content">
+    <h1 class="mt-4">글수정</h1>
+    <div class="mb-4">
+        <div>
+            <form method="post" th:action="@{/board/{id}/update(id=${id})}">
+                <div class="form-row g-2">
+                    <div class="col-sm-8">
+                        <select class="form-control" name="boardName" id="boardName" required onchange="updateUrl()">
+                            <option value="sports" th:selected="${board.boardName == 'sports'}">스포츠</option>
+                            <option value="reading" th:selected="${board.boardName == 'reading'}">독서</option>
+                            <option value="hobby" th:selected="${board.boardName == 'hobby'}">취미</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm">
+                        <select class="form-control" name="category" id="category" onchange="updateUrl()" required>
+                        </select>
+                    </div>
+                </div>
+                <br>
+                <div class="mb-3">
+                    <input type="text" class="form-control" id="title" name="title" th:value="${board.title}"
+                           placeholder="제목">
+                    <label for="title" class="form-label"></label>
+                </div>
+
+                <div class="form-floating mb-3">
+                <textarea name="content" class="form-control" id="summernote" rows="3" th:utext="${board.content}"
+                          style="height: 500px;"
+                          required></textarea>
+                    <label for="summernote"></label>
+                </div>
+                <a th:href="@{/board/{id}(id=${id})}" class="btn btn-outline-secondary">본문</a>
+                <button type="submit" class="btn btn-primary">등록</button>
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

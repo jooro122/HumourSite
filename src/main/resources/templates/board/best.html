@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+<head>
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/pages/board/list.css}"/>
+    </th:block>
+    <title>베스트 게시판</title>
+    <th:block layout:fragment="script">
+        <script src="/js/board/list.js"></script>
+    </th:block>
+</head>
+<body>
+
+<div class="container" layout:fragment="content">
+    <h2>베스트 게시판</h2>
+    <div th:if="${!boardsOrderByLikes.isEmpty()}">
+        <div class="board-list">
+            <div th:each="board : ${boardsOrderByLikes}" class="board-item">
+                <div class="thumbnail-area">
+                    <img th:src="${board.content}" class="thumbnail-image">
+                    <div class="thumbnail-icon">
+                        <i th:if="${board.content == null}" class="fa-regular fa-file-lines fa-4x"></i>
+                    </div>
+                </div>
+
+                <div class="board-info">
+                    <div class="board-title">
+
+                        <a class="title-a" th:href="@{/board/{id}(id=${board.id})}"
+                           th:attr="onclick='increaseViews(\'' + ${board.id} + '\')'">
+                            <span class="category-label" th:text="'['+${board.categoryText}+']'"></span>
+                            <span th:text="${board.title}"></span>
+                        </a>
+                        <span class="comments" th:text="'['+${board.comments}+']'"></span>
+                    </div>
+
+                    <div class="etc">
+                        <a th:href="@{/board/list(searchType=userName, keyword=${board.userName})}">
+                            <span th:text="${board.userName}"></span>
+                        </a>
+                        <div class="dot">
+                            ·
+                        </div>
+                        <i class="mr-1 fa-regular fa-eye"></i><span th:text="${board.views}"></span>
+                        <div class="dot">
+                            ·
+                        </div>
+                        <i class="mr-1 fa-regular fa-thumbs-up"></i> <span th:text="${board.likes}"></span>
+                        <div class="dot">
+                            ·
+                        </div>
+                        <span th:text="${board.createdAt} ? ${#temporals.format(board.createdAt,'yyyy-MM-dd HH:mm')} : ${board.createdAt}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>

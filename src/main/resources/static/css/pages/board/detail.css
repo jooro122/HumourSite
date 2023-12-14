@@ -1,0 +1,71 @@
+/* detail.css */
+#content {
+    width: 100%;
+    word-wrap: break-word; /* 글 내용이 너무 길 경우 줄 바꿈 처리 */
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.etc {
+    display: flex;
+    align-items: center;
+    color: #a09f9f;
+    border-bottom: 1px solid #ccc;
+}
+
+.etc > div {
+    margin-bottom: 30px;
+}
+
+.dot {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+}
+
+.content {
+    margin-top: 30px;
+}
+
+.content img {
+    max-width: 100%;
+    height: auto;
+}
+
+.likeContainer {
+    margin: 20px auto;
+    text-align: center;
+}
+
+.likeButton {
+    background-color: #414aad;
+    color: white;
+    padding: 5px;
+    display: inline-block;
+    align-items: center;
+    text-align: center;
+}
+
+.likeButton i {
+    margin-right: 5px;
+}
+
+.likeButton span {
+    margin-left: 5px;
+    margin-right: 5px;
+    color: #afa;
+}
+
+.likeButton:hover {
+    background-color: #585fac;
+    color: white;
+}
+.comments-title {
+    display: flex;
+
+}
+.media-body {
+    border-bottom: 1px solid #ccc;
+}

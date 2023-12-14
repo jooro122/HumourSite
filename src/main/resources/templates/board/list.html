@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="kr" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default}">
+<head>
+    <title>게시판</title>
+
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" th:href="@{/css/pages/board/list.css}"/>
+    </th:block>
+
+    <th:block layout:fragment="script">
+        <script src="/js/board/list.js"></script>
+    </th:block>
+
+</head>
+<body>
+<div class="container" layout:fragment="content">
+    <h2 th:if="${category == null and boardName != null}" th:text="${boardName + ' 전체 게시판'}"></h2>
+
+    <!-- category가 있으면 첫 번째 카테고리 출력 -->
+    <h2 th:if="${category != null and boardCategory != null}" th:text="${boardCategory[0]}"></h2>
+
+    <div class="board-list">
+        <div th:each="board : ${boardList}" class="board-item">
+            <div class="thumbnail-area">
+                <img th:src="${board.content}" class="thumbnail-image">
+                <div class="thumbnail-icon">
+                    <i th:if="${board.content == null}" class="fa-regular fa-file-lines fa-4x"></i>
+                </div>
+            </div>
+
+            <div class="board-info">
+                <div class="board-title">
+
+                    <a class="title-a" th:href="@{/board/{id}(id=${board.id})}"
+                       th:attr="onclick='increaseViews(\'' + ${board.id} + '\')'">
+                        <span class="category-label" th:text="'['+${board.categoryText}+']'"></span>
+                        <span th:text="${board.title}"></span>
+                    </a>
+                    <span class="comments" th:text="'['+${board.comments}+']'"></span>
+                </div>
+
+                <div class="etc">
+                    <a th:href="@{/board/list(searchType=userName, keyword=${board.userName})}">
+                        <span th:text="${board.userName}"></span>
+                    </a>
+                    <div class="dot">
+                        ·
+                    </div>
+                    <i class="mr-1 fa-regular fa-eye"></i><span th:text="${board.views}"></span>
+                    <div class="dot">
+                        ·
+                    </div>
+                    <i class="mr-1 fa-regular fa-thumbs-up"></i> <span th:text="${board.likes}"></span>
+                    <div class="dot">
+                        ·
+                    </div>
+                    <span th:text="${board.createdAt} ? ${#temporals.format(board.createdAt,'yyyy-MM-dd HH:mm')} : ${board.createdAt}"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div th:if="${!boardList.isEmpty()}">
+        <ul class="pagination"
+            th:with="
+                pageNumber = ${boardList.pageable.pageNumber},
+                pageSize = ${boardList.pageable.pageSize},
+                totalPages = ${boardList.totalPages},
+                startPage = ${T(java.lang.Math).floor(pageNumber / pageSize) * pageSize + 1},
+                tempEndPage = ${startPage + pageSize - 1},
+                endPage = (${tempEndPage < totalPages ? tempEndPage : totalPages})">
+
+            <li th:classappend="${boardList.first} ? 'disabled'" class="page-item">
+                <a class="page-link" th:if="${param.keyword == null}"
+                   th:href="${boardList.first} ? '#' : @{/board/list(page=${pageNumber - 1})}" aria-label="Previous">
+                    <span aria-hidden="true">&lt;</span>
+                </a>
+                <a class="page-link" th:if="${param.keyword != null}"
+                   th:href="${boardList.first} ? '#' : @{/board/list(page=${pageNumber - 1}, keyword=${param.keyword})}"
+                   aria-label="Previous">
+                    <span aria-hidden="true">&lt;</span>
+                </a>
+            </li>
+
+            <li th:each="page: ${#numbers.sequence(startPage, endPage)}"
+                th:classappend="${page == pageNumber + 1} ? 'active'" class="page-item">
+                <a th:text="${page}" th:if="${param.keyword == null}" class="page-link"
+                   th:href="@{/board/list(page=${page - 1})}"></a>
+                <a th:text="${page}" th:if="${param.keyword != null}" class="page-link"
+                   th:href="@{/board/list(page=${page - 1}, keyword=${param.keyword})}"></a>
+            </li>
+
+            <li th:classappend="${boardList.last} ? 'disabled'" class="page-item">
+                <a class="page-link" th:if="${param.keyword == null}"
+                   th:href="${boardList.last} ? '#' : @{/board/list(page=${pageNumber + 1})}" aria-label="Next">
+                    <span aria-hidden="true">&gt;</span>
+                </a>
+                <a class="page-link" th:if="${param.keyword != null}"
+                   th:href="${boardList.last} ? '#' : @{/board/list(page=${pageNumber + 1}, keyword=${param.keyword})}"
+                   aria-label="Next">
+                    <span aria-hidden="true">&gt;</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <button id="writeButton" class="btn btn-primary" onclick="window.location='/board/write' + location.search">글작성
+    </button>
+
+</div>
+</body>
+</html>
