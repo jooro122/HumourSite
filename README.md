@@ -84,12 +84,14 @@
 * 제목, 내용, 작성자별 검색 기능
 
   
-![2_4 검색](https://github.com/jooro122/HumourSite/assets/121988218/2d817bc2-acbf-4c75-bca7-5b178062a274)
+![2_4검색](https://github.com/jooro122/HumourSite/assets/121988218/ba022f6d-2c1d-4169-8a56-732696c6c13d)
+
 
 * 카테고리별 정렬 기능(URL 파라미터로 게시판 이름, 카테고리 이름으로 정렬)
 
   
-![2_5 카테고리 정렬](https://github.com/jooro122/HumourSite/assets/121988218/b5d9d827-c3ee-4532-8cb5-2e7e2f543525)
+![2_5 카테고리정렬](https://github.com/jooro122/HumourSite/assets/121988218/9e133644-09f9-4076-9244-9690f2113e8c)
+
 
 
 
