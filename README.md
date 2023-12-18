@@ -17,8 +17,11 @@
 # 📜프로젝트 구현기능
 # 회원
 * 관리자 기능 (모든 게시물과 댓글 제어 기능)
+* ![1_1 관리자](https://github.com/jooro122/HumourSite/assets/121988218/85eac8a6-3f69-4059-abb8-a9ae13f2b696)
+
 * Oauth2 를 활용한 네이버 소셜 로그인 구현
 * 회원 가입시 @Valid를 활용한 유효성 검사 기능
+* PasswordEncoder를 이용하여 비밀번호 DB 저장시 암호화
 * 회원 페이지의 회원 정보 수정, 회원 탈퇴, 내가 쓴 글 조회, 내가 좋아요 한 글 조회 기능
 * Spring Security 로그인(UserDetails)과 소셜 로그인(OAuth2User)의 통합 인증을 위한 PrincipalDetail 클래스 활용
 
