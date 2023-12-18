@@ -14,8 +14,7 @@ public class OAuth2Controller {
 
     @GetMapping("/login/naver")
     public String naverLogin() {
-        // 네이버 로그인을 시작할 페이지로 이동
-//        return "redirect:" + customOAuth2UserService.getNaverAuthorizationUri();
+
         return "redirect:/oauth2/authorization/naver";
     }
 
