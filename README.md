@@ -16,6 +16,13 @@
 
 * OpenAPI : 네이버 소셜 로그인
 
+
+# 🗃️ERD 설계
+
+
+![DB구조](https://github.com/jooro122/HumourSite/assets/121988218/f1926f8d-ec42-43a7-b2f9-8e9f9d92dbcc)
+
+
 # 📜프로젝트 구현기능
 # 회원
 * 관리자 기능 (모든 게시물과 댓글 제어 기능)
