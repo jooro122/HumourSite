@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class OAuth2Controller {
 
-    private final CustomOAuth2UserService customOAuth2UserService;
 
     @GetMapping("/login/naver")
     public String naverLogin() {
