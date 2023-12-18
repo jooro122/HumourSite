@@ -11,6 +11,11 @@
     padding: 10px;
 }
 
+.main img{
+    width: 300px;
+    height: auto;
+}
+
 /* 회원가입 ~ 로그아웃 css */
 .sub ul {
     list-style: none;
