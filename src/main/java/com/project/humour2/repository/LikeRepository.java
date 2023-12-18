@@ -5,6 +5,8 @@ import com.project.humour2.entity.Like;
 import com.project.humour2.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface LikeRepository extends JpaRepository<Like, Long> {
 
     boolean existsByBoardIdAndMemberId(Long boardId, Long memberId);
@@ -17,4 +19,6 @@ public interface LikeRepository extends JpaRepository<Like, Long> {
     // 게시물과 사용자에 대한 좋아요 정보 조회
     Like findByBoardAndMember(Long boardId, Long memberId);
 
+    // 내가 좋아요 한 게시물 조회
+    List<Like> findLikedBoardIdsByMember(Member member);
 }

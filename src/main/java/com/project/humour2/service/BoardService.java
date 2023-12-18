@@ -149,4 +149,19 @@ public class BoardService {
                 .collect(Collectors.toList());
     }
 
+    //내가 좋아요 한 글 조회
+    public List<BoardResponseDTO> getLikedBoardsByUserEmail(String email) {
+        Member member = memberRepository.findByEmail(email);
+        if (member == null) {
+            throw new UsernameNotFoundException("해당 이메일이 존재하지 않습니다.");
+        }
+
+        List<Like> likedBoards = likeRepository.findLikedBoardIdsByMember(member);
+
+        return likedBoards.stream()
+                .map(Like::getBoard) // Like 엔티티에서 Board로 변환
+                .map(board -> BoardResponseDTO.builder().board(board).build())
+                .collect(Collectors.toList());
+    }
+
 }

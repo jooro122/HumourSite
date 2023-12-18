@@ -127,12 +127,17 @@ public class MemberController {
     }
 
     @GetMapping("/article/like")
-    public String likedArticles(Model model,Authentication authentication) {
+    public String likedArticles(Model model, Authentication authentication) {
         if (authentication == null || !authentication.isAuthenticated()) {
-            return "redirect:/member/login"; // 권한이 없을 경우 홈페이지로 리다이렉트
+            return "redirect:/member/login";
         }
-        List<BoardResponseDTO> likedArticles = boardService.getBoardsOrderByLikes();
+
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String email = userDetails.getUsername();
+
+        List<BoardResponseDTO> likedArticles = boardService.getLikedBoardsByUserEmail(email);
         model.addAttribute("likedArticles", likedArticles);
+
         return "member/likedArticle";
     }
 
