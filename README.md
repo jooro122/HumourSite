@@ -1,13 +1,12 @@
 # HumourSite - 1인 프로젝트
 * 유머 커뮤니티 사이트
-  + 
-  ★ 메인 사진
+  + 기존 유머 커뮤니티들을 참고하여 
 
 # 🧐 개발기간
 * 개발 기간 : 2023.11.01 ~ 2023.12.13
 
 # ⚙️ 프로젝트 개발 환경
-* Frontend : **HTML, CSS, JavaScript, AJAX, Thymeleaf, BootStrap
+* Frontend : HTML, CSS, JavaScript, AJAX, Thymeleaf, BootStrap
 
 * Backend : JAVA 11, Spring Boot, Spring Data JPA, Spring Security
 
@@ -30,3 +29,6 @@
 * 게시판 이름과 카테고리별로 게시물 DB 설계
 * 게시물 별 댓글 작성 / 삭제 기능
 * 제목, 내용, 작성자별 검색 기능
+
+# 레이아웃
+* 타임리프 레이아웃을 이용하여 공통 양식 생성 후 header / content / footer 로 나누어 페이지 관리
