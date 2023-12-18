@@ -47,6 +47,13 @@
 ![2_3 댓글작성](https://github.com/jooro122/HumourSite/assets/121988218/7239d0e6-0a39-4af9-95cd-05bb68eef8be)
 
 * 제목, 내용, 작성자별 검색 기능
+![2_4 검색](https://github.com/jooro122/HumourSite/assets/121988218/2d817bc2-acbf-4c75-bca7-5b178062a274)
+
+* 카테고리별 정렬 기능(URL 파라미터로 게시판 이름, 카테고리 이름으로 정렬)
+![2_5 카테고리 정렬](https://github.com/jooro122/HumourSite/assets/121988218/b5d9d827-c3ee-4532-8cb5-2e7e2f543525)
+
 
 # 레이아웃
 * 타임리프 레이아웃을 이용하여 공통 양식 생성 후 header / content / footer 로 나누어 페이지 관리
+![레이아웃 구조](https://github.com/jooro122/HumourSite/assets/121988218/391561d3-0482-423b-b5da-ed9dd9ab0f92)
+
